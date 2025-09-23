@@ -1,5 +1,5 @@
 # What does this plugin do?
-#### TLDR : Fixes the Maximum number shown in Engine events (32,767 -> 2,147,483,647).
+#### TLDR : Fixes the Maximum number shown in some Engine events (32,767 -> 2,147,483,647).
 This Plugin fixes many Events that flow over the 15-bit limit (32,767)
 <br><br>
 
