@@ -1,6 +1,6 @@
 # What does this plugin do?
 #### TLDR : Fixes the Maximum number shown in some Engine events (32,767 -> 2,147,483,647).
-This Plugin fixes many Events that flow over the 15-bit limit (32,767)
+This Plugin fixes many Events that can flow over the `short` limit (32,767) by setting them to use a `long` instead
 <br><br>
 
 > [!IMPORTANT]
