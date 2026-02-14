@@ -1,6 +1,5 @@
 "Events"
 {
-    // Damaged Events
 	"player_hurt"
     {
         "userid"            "short"
@@ -27,7 +26,6 @@
 		"boss"              "short"		// 1=HHH 2=Monoculus 3=Merasmus
 	}
 
-    // Healing Events
     "player_healed"
     {
         "patient"   "short"

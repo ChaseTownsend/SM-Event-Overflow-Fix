@@ -1,28 +1,28 @@
 #pragma newdecls required
+#pragma semicolon 0
 
 // Includes
 #include <sourcemod>
 #include <dhooks>
 
 // Defines
-#define VERSION "1.0.1"
+#define VERSION "1.0.0"
 
 // Dhooks
-DynamicDetour g_hDetourCreateEvent;
+DynamicDetour 	g_hDetourCreateEvent;
 //
-Address g_aGameEventManager;
-Handle g_hSDKLoadEvents
+Address       	g_aGameEventManager;
+Handle 			g_hSDKLoadEvents
 
-// Plugin Info
+	// Plugin Info
 public Plugin myinfo =
 {
-	name		=	"Event Overflow Fixes",
-	author		=	"The FatCat",
-	description	=	"Fixes Many game events that flow over the 15-bit limit",
-	version		=	VERSION,
-	url			=	"https://github.com/ChaseTownsend/SM-Event-Overflow-Fix",
+	name        = "Load Modified/Custom Events",
+	author      = "The FatCat",
+	description = "Hooks onto CGameEventManager to Load a custom events file ",
+	version     = VERSION,
+	url         = "https://github.com/ChaseTownsend/SM-Event-Overflow-Fix",
 };
-
 
 void LoadGameData()
 {
@@ -31,7 +31,7 @@ void LoadGameData()
 	{
 		SetFailState("[SDK] Failed to locate gamedata file \"events.txt\"");
 	}
-	
+
 	g_hDetourCreateEvent = DynamicDetour.FromConf(gamedata, "CGameEventManager::CreateEvent");
 	if (!g_hDetourCreateEvent || !g_hDetourCreateEvent.Enable(Hook_Pre, Detour_CreateEvent))
 	{
@@ -49,7 +49,6 @@ void LoadGameData()
 	}
 }
 
-
 public void OnPluginStart()
 {
 	LoadGameData();
@@ -60,17 +59,16 @@ public void OnPluginStart()
 	}
 }
 
-
 public void OnMapStart()
 {
-    if (g_aGameEventManager && g_hSDKLoadEvents)
+	if (g_aGameEventManager && g_hSDKLoadEvents)
 	{
 		char eventsFile[PLATFORM_MAX_PATH];
 		BuildPath(Path_SM, eventsFile, sizeof(eventsFile), "data/events/events.res");
 		LogMessage("Loading custom events file '%s'", eventsFile);
 		if (SDKCall(g_hSDKLoadEvents, g_aGameEventManager, eventsFile))
 		{
-			LogMessage("Success!");
+			LogMessage("Successfully loaded events file '%s'!", eventsFile);
 		}
 		else
 		{
